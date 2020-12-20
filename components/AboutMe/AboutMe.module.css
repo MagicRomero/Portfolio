@@ -1,0 +1,29 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  padding-bottom: 50px;
+  padding-top: 50px;
+  gap: 100px;
+  padding: 2em;
+}
+
+.about-me h4 {
+  margin-top: 1em;
+}
+
+.skills {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 0.5em;
+  background-color: var(--previewShadow);
+}
+
+.skills ul {
+  padding-left: 0.5em;
+}
+
+@media screen and (max-width: 800px) {
+  .skills {
+    margin-top: 0;
+  }
+}
