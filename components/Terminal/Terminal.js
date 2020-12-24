@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import styles from "./Terminal.module.css";
 
@@ -25,7 +24,7 @@ const Terminal = () => {
         </a>
         <ul className={styles.navigation}>
           <li>
-            <a href="index.html#contact">Contact</a>
+            <Link href="/contact">Contact</Link>
           </li>
         </ul>
       </div>
