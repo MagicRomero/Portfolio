@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import styles from "./Header.module.css";
+import { useContext } from "react";
 import styled from "styled-components";
+import { GlobalContext } from "@/lib/context";
 
 const HeaderWrapper = styled.div`
   display: grid;
@@ -49,6 +49,10 @@ const ThemeDot = styled.div`
 `;
 
 const Header = ({ title, subtitle, themeSelector }) => {
+  const context = useContext(GlobalContext);
+
+  const updateTheme = (theme) => context.setTheme(theme);
+
   return (
     <HeaderWrapper>
       <Title>{title}</Title>
@@ -57,12 +61,16 @@ const Header = ({ title, subtitle, themeSelector }) => {
       {themeSelector && (
         <ThemeOptionsWrapper>
           {[
-            { type: "light", color: "#fff" },
-            { type: "blue", color: "#192734" },
-            { type: "green", color: "#78866b" },
-            { type: "purple", color: "#7e4c74" },
+            { theme: "light", color: "#fff" },
+            { theme: "blue", color: "#192734" },
+            { theme: "green", color: "#78866b" },
+            { theme: "purple", color: "#7e4c74" },
           ].map((data) => (
-            <ThemeDot key={data.type} backgroundColor={data.color} />
+            <ThemeDot
+              key={data.theme}
+              backgroundColor={data.color}
+              onClick={(event) => updateTheme(data.theme)}
+            />
           ))}
         </ThemeOptionsWrapper>
       )}

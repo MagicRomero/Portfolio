@@ -1,50 +1,203 @@
 import Link from "next/link";
-import styles from "./Terminal.module.css";
+import styled from "styled-components";
+
+const TerminalWrapper = styled.div`
+  background-color: ${(props) => props.theme.secondaryBackgroundColor};
+  border: 1px solid ${(props) => props.theme.borderColor};
+  border-radius: 5px 5px 0 0;
+  box-shadow: -1px 1px 3px -1px rgba(0, 0, 0, 0.75);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "nav-wrapper nav-wrapper"
+    "left-column right-column";
+
+  @media screen and (max-width: 800px) {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "nav-wrapper"
+      "left-column"
+      "right-column";
+  }
+`;
+
+const Column = styled.div`
+  padding-top: 50px;
+  padding-bottom: 70px;
+`;
+
+const LeftColumn = styled(Column)`
+  grid-area: left-column;
+`;
+
+const RightColumn = styled(Column)`
+  grid-area: right-column;
+  display: grid;
+  align-content: center;
+
+  @media screen and (max-width: 800px) {
+    justify-content: center;
+  }
+`;
+
+const ProfileImage = styled.img.attrs((props) => ({
+  src: props.src,
+  alt: props.alt,
+  width: props.width || 200,
+  height: props.height || 200,
+}))`
+  display: block;
+  margin: 0 auto;
+  object-fit: cover;
+  border: 2px solid ${(props) => props.theme.borderColor};
+`;
+
+const NavWrapper = styled.nav`
+  border-radius: 5px 5px 0 0;
+  grid-area: nav-wrapper;
+  border-bottom: ${(props) => props.theme.borderColor};
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: ${(props) => props.theme.primaryBackgroundColor};
+`;
+
+const DotsWrapper = styled.div`
+  display: flex;
+  padding: 10px;
+`;
+
+const BrowserDot = styled.div`
+  background-color: black;
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  margin: 5px;
+
+  -webkit-box-shadow: -1px 1px 3px -1px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -1px 1px 3px -1px rgba(0, 0, 0, 0.75);
+  box-shadow: -1px 1px 3px -1px rgba(0, 0, 0, 0.75);
+
+  &:nth-child(1) {
+    background-color: #fc6058;
+  }
+
+  &:nth-child(2) {
+    background-color: #fec02f;
+  }
+
+  &:nth-child(3) {
+    background-color: #2aca3e;
+  }
+`;
+
+const Navigation = styled.ul`
+  margin: 0;
+  padding: 10px;
+
+  & li {
+    display: inline-block;
+    margin-right: 5px;
+    margin-left: 5px;
+  }
+
+  & a {
+    color: ${(props) => props.theme.primaryTextColor};
+  }
+`;
+
+const PreviewShadow = styled.div`
+  background-color: ${(props) => props.theme.previewShadow};
+  max-width: 300px;
+  height: 180px;
+  padding-left: 30px;
+  padding-top: 30px;
+
+  @media screen and (max-width: 400px) {
+    max-width: 280px;
+    height: 180px;
+    padding-left: 10px;
+    padding-top: 10px;
+  }
+`;
+
+const Preview = styled.div`
+  width: 300px;
+  border: 1.5px solid #17a2b8;
+  background-color: ${(props) => props.theme.previewBackground};
+  padding: 15px;
+  position: relative;
+
+  @media screen and (max-width: 400px) {
+    width: 280px;
+  }
+`;
+
+const Corner = styled.div`
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 1.5px solid #17a2b8;
+  background-color: #fff;
+  position: absolute;
+`;
+
+const CornerTopLeft = styled(Corner)`
+  top: -5px;
+  left: -5px;
+`;
+
+const CornerTopRight = styled(Corner)`
+  top: -5px;
+  right: -5px;
+`;
+
+const CornerBottomRight = styled(Corner)`
+  bottom: -5px;
+  right: -5px;
+`;
+
+const CornerBottomLeft = styled(Corner)`
+  bottom: -5px;
+  left: -5px;
+`;
 
 const Terminal = () => {
   return (
-    <div className={styles.wrapper}>
-      <div className={styles["left-column"]}>
-        <img
-          className={styles["profile-img"]}
-          src="/assets/images/profile.jpeg"
-          alt="picture of me"
-          width={200}
-          height={200}
-        />
-      </div>
-
-      <div className={styles["nav-wrapper"]}>
+    <TerminalWrapper>
+      <LeftColumn>
+        <ProfileImage src="/assets/images/profile.jpeg" alt="picture of me" />
+      </LeftColumn>
+      <NavWrapper>
         <a href="/">
-          <div className={styles["dots-wrapper"]}>
-            <div className={styles["browser-dot"]}></div>
-            <div className={styles["browser-dot"]}></div>
-            <div className={styles["browser-dot"]}></div>
-          </div>
+          <DotsWrapper>
+            <BrowserDot />
+            <BrowserDot />
+            <BrowserDot />
+          </DotsWrapper>
         </a>
-        <ul className={styles.navigation}>
+        <Navigation>
           <li>
             <Link href="/contact">Contact</Link>
           </li>
-        </ul>
-      </div>
-
-      <div className={styles["right-column"]}>
-        <div className={styles["preview-shadow"]}>
-          <div className={styles["preview"]}>
-            <div className={`${styles.corner} ${styles["corner-tl"]}`}></div>
-            <div className={`${styles.corner} ${styles["corner-tr"]}`}></div>
+        </Navigation>
+      </NavWrapper>
+      <RightColumn>
+        <PreviewShadow>
+          <Preview>
+            <CornerTopLeft />
+            <CornerTopRight />
             <h3>What I Do</h3>
             <p>
               I was a lead developer in a past life, now I enjoy teaching
               courses.
             </p>
-            <div className={`${styles.corner} ${styles["corner-br"]}`}></div>
-            <div className={`${styles.corner} ${styles["corner-bl"]}`}></div>
-          </div>
-        </div>
-      </div>
-    </div>
+            <CornerBottomRight />
+            <CornerBottomLeft />
+          </Preview>
+        </PreviewShadow>
+      </RightColumn>
+    </TerminalWrapper>
   );
 };
 

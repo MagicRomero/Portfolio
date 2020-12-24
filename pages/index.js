@@ -1,16 +1,29 @@
 import Head from "next/head";
-import AboutMe from "../components/AboutMe/AboutMe";
-import Header from "../components/Header/Header";
-import Projects from "../components/Projects/Projects";
-import Terminal from "../components/Terminal/Terminal";
+import AboutMe from "@/components/AboutMe/AboutMe";
+import Header from "@/components/Header/Header";
+import Projects from "@/components/Projects/Projects";
+import Terminal from "@/components/Terminal/Terminal";
 import styled from "styled-components";
 
-const StyledMainContainer = styled.section`
+const StyledMainContainer = styled.main`
   width: 1200px;
   margin: 0 auto;
   @media screen and (max-width: 1200px) {
     width: 95%;
   }
+`;
+
+const StyledSection = styled.section`
+  border-bottom: 1px solid var ${(props) => props.theme.borderColor};
+  overflow: auto;
+  margin-top: 1em;
+  margin-bottom: 1em;
+`;
+const StyledSectionPrimary = styled(StyledSection)`
+  background-color: ${(props) => props.theme.primaryBackgroundColor};
+`;
+const StyledSectionSecondary = styled(StyledSection)`
+  background-color: ${(props) => props.theme.secondaryBackgroundColor};
 `;
 
 export default function Home() {
@@ -21,19 +34,19 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <StyledMainContainer>
-        <Header title="Hi, I'm Romero!" />
-        {/*
-        <section className="section-first-type">
+        <Header />
+
+        <StyledSectionPrimary>
           <Terminal />
-        </section>
+        </StyledSectionPrimary>
 
-        <section className="section-second-type">
+        <StyledSectionSecondary>
           <AboutMe />
-        </section>
+        </StyledSectionSecondary>
 
-        <section className="section-first-type">
+        <StyledSectionPrimary>
           <Projects />
-        </section> */}
+        </StyledSectionPrimary>
       </StyledMainContainer>
     </>
   );

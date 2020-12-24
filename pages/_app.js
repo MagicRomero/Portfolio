@@ -1,6 +1,6 @@
 import { ThemeProvider } from "styled-components";
-import theme from "../styles/theme.js";
-import "../styles/globals.css";
+import { GlobalContext, ContextProvider } from "@/lib/context.js";
+import { theme, GlobalStyles } from "@/styles/theme.js";
 
 // const MainContainer = styled.main`
 // background:{({theme}) => theme.primaryBackgroundColor};
@@ -8,9 +8,16 @@ import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <ThemeProvider theme={theme.light}>
-      <Component {...pageProps} />
-    </ThemeProvider>
+    <ContextProvider>
+      <GlobalContext.Consumer>
+        {(value) => (
+          <ThemeProvider theme={theme[value.theme]}>
+            <GlobalStyles />
+            <Component {...pageProps} />
+          </ThemeProvider>
+        )}
+      </GlobalContext.Consumer>
+    </ContextProvider>
   );
 }
 
