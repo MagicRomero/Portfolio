@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const Form = styled.form`
   display: block;
@@ -19,14 +19,7 @@ const Form = styled.form`
     font-size: 14px;
   }
 `;
-
-const InputField = styled.input.attrs((props) => ({
-  autofocus: props.autoFocus || false,
-  id: props.id,
-  required: props.required || true,
-  type: props.type || "text",
-  name: props.name,
-}))`
+const BaseInputFieldStyles = css`
   width: 100%;
   padding: 0.8em 0.8em;
   background-color: ${(props) => props.theme.secondaryBackgroundColor};
@@ -35,18 +28,23 @@ const InputField = styled.input.attrs((props) => ({
   font-size: 14px;
 `;
 
+const InputField = styled.input.attrs((props) => ({
+  autofocus: props.autoFocus || false,
+  id: props.id,
+  required: props.required || true,
+  type: props.type || "text",
+  name: props.name,
+}))`
+  ${BaseInputFieldStyles}
+`;
+
 const TextAreaField = styled.textarea.attrs((props) => ({
   rows: props.rows || 15,
   id: props.id,
   required: props.required || true,
   name: props.name,
 }))`
-  width: 100%;
-  padding: 0.8em 0.8em;
-  background-color: ${(props) => props.theme.secondaryBackgroundColor};
-  border-radius: 5px;
-  border: 1px solid ${(props) => props.theme.borderColor};
-  font-size: 14px;
+  ${BaseInputFieldStyles}
 `;
 
 const SubmitInputField = styled(InputField)`
