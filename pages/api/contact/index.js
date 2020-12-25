@@ -5,7 +5,7 @@ import { check, validationResult } from "express-validator";
 const validateBody = initMiddleware(
   validateMiddleware(
     [
-      check["name"].isLength({ min: 2, max: 40 }),
+      check("name").isLength({ min: 2, max: 40 }),
       check("subject").isLength({ min: 3, max: 100 }),
       check("email").isEmail(),
       check("message").isLength({ min: 5, max: 255 }),
@@ -15,63 +15,47 @@ const validateBody = initMiddleware(
 );
 
 export default async (req, res) => {
-  switch (req.method) {
-    case "POST":
-      await validateBody(req, res);
+  try {
+    switch (req.method) {
+      case "POST":
+        await validateBody(req, res);
 
-      const errors = validationResult(req);
+        const errors = validationResult(req);
 
-      if (!errors.isEmpty()) {
-        return res.status(422).json({ errors: errors.array() });
-      }
+        if (!errors.isEmpty()) {
+          return res.status(422).json({ errors: errors.array() });
+        }
 
-      const transporter = nodemailer.createTransport({
-        host: process.env.SMTP_HOST,
-        port: process.env.SMTP_PORT || 25,
-        secure: process.env.NODE_ENV === "production", // upgrade later with STARTTLS
-        auth: {
-          user: process.env.SMTP_USER,
-          pass: process.env.SMTP_PASS,
-        },
-      });
+        const transportObject = {
+          host: process.env.SMTP_HOST,
+          port: parseInt(process.env.SMTP_PORT) || 587,
+          secure: process.env.NODE_ENV === "production",
+          auth: {
+            user: process.env.SMTP_USER,
+            pass: process.env.SMTP_PASS,
+          },
+        };
+        const transporter = nodemailer.createTransport(transportObject);
 
-      const { name, subject, email, message } = req.body;
+        const { name, subject, email, message } = req.body;
 
-      const result = await transporter.sendMail({
-        from: process.env.MAIL_FROM,
-        to: process.env.MAIL_TO,
-        subject: `${name} - ${subject}`,
-        text: `${message} \n ${email}`,
-      });
+        const result = await transporter.sendMail({
+          from: process.env.MAIL_FROM,
+          to: process.env.MAIL_TO,
+          subject: `${name} - ${subject}`,
+          text: `${message} \n ${email}`,
+        });
 
-      console.log("RESULT ", result);
-      break;
+        console.log("RESULT ", result);
 
-    default:
-      res.status(404).json({ message: "Request HTTP Method not supported." });
-      break;
+        res.status(201).json({ success: true, message: "Email ok" });
+        break;
+
+      default:
+        res.status(404).json({ message: "Request HTTP Method not supported." });
+        break;
+    }
+  } catch (error) {
+    return res.status(501).json({ success: false, error });
   }
 };
-
-function validateContactFormData({ name, subject, email, message }) {
-  const errors = {};
-  if (name && subject && email && message) {
-    if (!name || name.length === 0) {
-      errors["name"] = "El nombre introducido no es válido o está vacío";
-    }
-
-    if (!subject || subject.length === 0) {
-      errors["name"] = "El titulo introducido no es válido o está vacío";
-    }
-
-    if (!email || email.length === 0) {
-      errors["name"] = "El email introducido no es válido o está vacío";
-    }
-
-    if (!message || message.length === 0) {
-      errors["name"] = "El mensaje introducido no es válido o está vacío";
-    }
-  }
-
-  return errors;
-}

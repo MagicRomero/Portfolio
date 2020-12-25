@@ -21,9 +21,10 @@ const Form = styled.form`
     font-size: 14px;
   }
 `;
+
 const BaseInputFieldStyles = css`
   width: 100%;
-  padding: 0.8em 0.8em;
+  padding: 0.8em;
   background-color: ${(props) => props.theme.secondaryBackgroundColor};
   border-radius: 5px;
   border: 1px solid ${(props) => props.theme.borderColor};
@@ -31,11 +32,12 @@ const BaseInputFieldStyles = css`
 `;
 
 const InputField = styled.input.attrs((props) => ({
-  autofocus: props.autoFocus || false,
+  autoFocus: props.autoFocus || false,
   id: props.id,
-  required: props.required || true,
+  required: props.required || false,
   type: props.type || "text",
   name: props.name,
+  disabled: props.disabled || false,
 }))`
   ${BaseInputFieldStyles}
 `;
@@ -47,7 +49,9 @@ const TextAreaField = styled.textarea.attrs((props) => ({
   name: props.name,
 }))`
   ${BaseInputFieldStyles}
-  resize:none;
+
+  padding:0.4em 0.5em;
+  resize: none;
 `;
 
 const SubmitInputField = styled(InputField)`
@@ -66,6 +70,12 @@ const SubmitInputField = styled(InputField)`
   }
 `;
 
+const FormErrorMessage = styled.span`
+  margin: 0.3em 0.5em;
+  color: red;
+  font-size: 0.8em;
+`;
+
 const ContactForm = () => {
   const { register, handleSubmit, formState, errors } = useForm();
 
@@ -79,7 +89,10 @@ const ContactForm = () => {
         },
       });
 
-      console.log(result.json());
+      const response = await result.json();
+
+      if (response.errors && response.errors.length) {
+      }
     } catch (error) {
       console.error(error);
     }
@@ -88,6 +101,8 @@ const ContactForm = () => {
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <label htmlFor="name">Name</label>
+      <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
+
       <InputField
         autoFocus
         ref={register({
@@ -98,8 +113,8 @@ const ContactForm = () => {
         type="text"
         name="name"
       />
-
       <label htmlFor="subject">Subject</label>
+      <FormErrorMessage>{errors.subject?.message}</FormErrorMessage>
       <InputField
         ref={register({
           required: "Invalid subject",
@@ -111,10 +126,14 @@ const ContactForm = () => {
       />
 
       <label htmlFor="email">Email</label>
+      <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
       <InputField
         ref={register({
-          required: "Invalid email",
-          pattern: /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
+          required: false,
+          pattern: {
+            value: /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
+            message: "El email no tiene un formato correcto",
+          },
         })}
         id="email"
         type="email"
@@ -122,9 +141,11 @@ const ContactForm = () => {
       />
 
       <label htmlFor="message">Message</label>
+      <FormErrorMessage>{errors.message?.message}</FormErrorMessage>
+
       <TextAreaField
         ref={register({
-          required: "Invalid subject",
+          required: "Invalid Message",
           pattern: /^[\w\s]*$/,
         })}
         rows="15"
@@ -132,7 +153,11 @@ const ContactForm = () => {
         name="message"
       ></TextAreaField>
 
-      <SubmitInputField type="submit" value="Send" />
+      <SubmitInputField
+        type="submit"
+        value={formState.isSubmitting ? "Sending..." : "Send"}
+        disabled={formState.isSubmitting}
+      />
     </Form>
   );
 };

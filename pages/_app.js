@@ -2,18 +2,15 @@ import { ThemeProvider } from "styled-components";
 import { GlobalContext, ContextProvider } from "@/lib/context.js";
 import { theme, GlobalStyles } from "@/styles/theme.js";
 
-// const MainContainer = styled.main`
-// background:{({theme}) => theme.primaryBackgroundColor};
-// `;
-
 function MyApp({ Component, pageProps }) {
+  const getLayout = Component.getLayout || ((page) => page);
   return (
     <ContextProvider>
       <GlobalContext.Consumer>
         {(value) => (
           <ThemeProvider theme={theme[value.theme]}>
             <GlobalStyles />
-            <Component {...pageProps} />
+            {getLayout(<Component {...pageProps} />)}
           </ThemeProvider>
         )}
       </GlobalContext.Consumer>

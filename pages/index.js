@@ -1,9 +1,12 @@
 import Head from "next/head";
+import styled from "styled-components";
 import AboutMe from "@/components/AboutMe/AboutMe";
 import Header from "@/components/Header/Header";
 import Projects from "@/components/Projects/Projects";
 import Terminal from "@/components/Terminal/Terminal";
-import styled from "styled-components";
+import { useRouter } from "next/router";
+import { availableLocale } from "@/locales";
+import { PortfolioLayout } from "@/components/layouts/PortofolioLayout";
 
 const StyledMainContainer = styled.main`
   width: 1200px;
@@ -26,7 +29,11 @@ const StyledSectionSecondary = styled(StyledSection)`
   background-color: ${(props) => props.theme.secondaryBackgroundColor};
 `;
 
-export default function Home() {
+const Home = () => {
+  const router = useRouter();
+
+  const translations = availableLocale(router.locale || router.defaultLocale);
+
   return (
     <>
       <Head>
@@ -34,20 +41,26 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <StyledMainContainer>
-        <Header />
+        <Header translations={translations} />
 
         <StyledSectionPrimary>
-          <Terminal />
+          <Terminal translations={translations} />
         </StyledSectionPrimary>
 
         <StyledSectionSecondary>
-          <AboutMe />
+          <AboutMe translations={translations} />
         </StyledSectionSecondary>
 
         <StyledSectionPrimary>
-          <Projects />
+          <Projects translations={translations} />
         </StyledSectionPrimary>
       </StyledMainContainer>
     </>
   );
-}
+};
+
+Home.getLayout = (page) => {
+  return <PortfolioLayout {...page.props}>{page}</PortfolioLayout>;
+};
+
+export default Home;

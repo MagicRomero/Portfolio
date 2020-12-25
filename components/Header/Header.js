@@ -48,39 +48,40 @@ const ThemeDot = styled.div`
   }
 `;
 
-const Header = ({ title, subtitle, themeSelector }) => {
+const Header = ({ translations, themeSelector }) => {
   const context = useContext(GlobalContext);
 
   const updateTheme = (theme) => context.setTheme(theme);
 
   return (
     <HeaderWrapper>
-      <Title>{title}</Title>
-      <Subtitle>{subtitle}</Subtitle>
+      <Title>{translations.title}</Title>
 
       {themeSelector && (
-        <ThemeOptionsWrapper>
-          {[
-            { theme: "light", color: "#fff" },
-            { theme: "blue", color: "#192734" },
-            { theme: "green", color: "#78866b" },
-            { theme: "purple", color: "#7e4c74" },
-          ].map((data) => (
-            <ThemeDot
-              key={data.theme}
-              backgroundColor={data.color}
-              onClick={(event) => updateTheme(data.theme)}
-            />
-          ))}
-        </ThemeOptionsWrapper>
+        <>
+          <Subtitle>{translations.subtitle}</Subtitle>
+
+          <ThemeOptionsWrapper>
+            {[
+              { theme: "light", color: "#fff" },
+              { theme: "blue", color: "#192734" },
+              { theme: "green", color: "#78866b" },
+              { theme: "purple", color: "#7e4c74" },
+            ].map((data) => (
+              <ThemeDot
+                key={data.theme}
+                backgroundColor={data.color}
+                onClick={(event) => updateTheme(data.theme)}
+              />
+            ))}
+          </ThemeOptionsWrapper>
+        </>
       )}
     </HeaderWrapper>
   );
 };
 
 Header.defaultProps = {
-  title: "Hi I'm Daniel Romero!",
-  subtitle: "Personalize theme",
   themeSelector: true,
 };
 
