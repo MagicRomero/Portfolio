@@ -1,4 +1,6 @@
 import styled, { css } from "styled-components";
+import { useForm } from "react-hook-form";
+import "isomorphic-fetch";
 
 const Form = styled.form`
   display: block;
@@ -45,6 +47,7 @@ const TextAreaField = styled.textarea.attrs((props) => ({
   name: props.name,
 }))`
   ${BaseInputFieldStyles}
+  resize:none;
 `;
 
 const SubmitInputField = styled(InputField)`
@@ -64,21 +67,72 @@ const SubmitInputField = styled(InputField)`
 `;
 
 const ContactForm = () => {
+  const { register, handleSubmit, formState, errors } = useForm();
+
+  const onSubmit = async (data) => {
+    try {
+      const result = await fetch("/api/contact", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      });
+
+      console.log(result.json());
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
-    <Form>
+    <Form onSubmit={handleSubmit(onSubmit)}>
       <label htmlFor="name">Name</label>
-      <InputField autoFocus required id="name" type="text" name="name" />
+      <InputField
+        autoFocus
+        ref={register({
+          required: "Invalid name",
+          pattern: /^[\w\s]*$/,
+        })}
+        id="name"
+        type="text"
+        name="name"
+      />
 
       <label htmlFor="subject">Subject</label>
-      <InputField required id="subject" type="text" name="subject" />
+      <InputField
+        ref={register({
+          required: "Invalid subject",
+          pattern: /^[\w\s]*$/,
+        })}
+        id="subject"
+        type="text"
+        name="subject"
+      />
 
       <label htmlFor="email">Email</label>
-      <InputField required id="email" type="email" name="email" />
+      <InputField
+        ref={register({
+          required: "Invalid email",
+          pattern: /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
+        })}
+        id="email"
+        type="email"
+        name="email"
+      />
 
       <label htmlFor="message">Message</label>
-      <TextAreaField rows="15" id="message" name="message"></TextAreaField>
+      <TextAreaField
+        ref={register({
+          required: "Invalid subject",
+          pattern: /^[\w\s]*$/,
+        })}
+        rows="15"
+        id="message"
+        name="message"
+      ></TextAreaField>
 
-      <SubmitInputField required id="submit-btn" type="submit" value="Send" />
+      <SubmitInputField type="submit" value="Send" />
     </Form>
   );
 };
