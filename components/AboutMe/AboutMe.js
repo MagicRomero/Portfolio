@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import icons from "@/data/tools";
 
 const AboutMeWrapper = styled.div`
   display: grid;
@@ -15,17 +16,41 @@ const AboutMeColumn = styled.div`
 `;
 const Skills = styled.div`
   display: flex;
-  justify-content: space-evenly;
+  flex-direction: column;
+  justify-content: space-around;
   padding: 0.5em;
   background-color: ${(props) => props.theme.previewShadow};
 
   & ul {
     padding-left: 0.5em;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
   }
 
+  & ul li:first-child {
+    margin-right: 0.4em;
+    font-weight: bold;
+    font-family: Russo One, monospace;
+    font-size: 1.2em;
+  }
+
+  & ul li {
+    margin: 0 0.5em;
+  }
   @media screen and (max-width: 800px) {
     margin-top: 0;
   }
+`;
+
+const ToolIcon = styled.img.attrs((props) => ({
+  src: props.src,
+  alt: props.alt,
+  width: props.width || "45",
+  height: props.height || "45",
+}))`
+  height: auto;
 `;
 
 const AboutMe = () => {
@@ -47,21 +72,57 @@ const AboutMe = () => {
       <AboutMeColumn>
         <h4>Top Expertise</h4>
         <Skills>
-          <ul>
-            <li>Python</li>
-            <li>Django</li>
-            <li>JavaScript</li>
-            <li>React</li>
-            <li>Postgres</li>
-          </ul>
-
-          <ul>
-            <li>Google Maps API</li>
-            <li>JS Charts</li>
-            <li>AWS (RDS/S3)</li>
-            <li>Heroku</li>
-            <li>HTML/CSS</li>
-          </ul>
+          <section id="frontend">
+            <ul>
+              <li>Frontend</li>
+              <li>
+                <ToolIcon src={icons.frontend.html5} alt="html5" />
+              </li>
+              <li>
+                <ToolIcon src={icons.frontend.css3} alt="css3" />
+              </li>
+              <li>
+                <ToolIcon src={icons.frontend.javascript} alt="javascript" />
+              </li>
+              <li>
+                <ToolIcon src={icons.frontend.typescript} alt="typescript" />
+              </li>
+              <li>
+                <ToolIcon src={icons.frontend.react} alt="react" />
+              </li>
+              <li>
+                <ToolIcon src={icons.frontend.jest} alt="jest" />
+              </li>
+            </ul>
+          </section>
+          <section id="backend">
+            <ul>
+              <li>Backend</li>
+              <li>
+                <ToolIcon src={icons.backend.php} alt="php" />
+              </li>
+              <li>
+                <ToolIcon src={icons.backend.laravel} alt="laravel" />
+              </li>
+              <li>
+                <ToolIcon src={icons.backend.node} alt="node" />
+              </li>
+              <li>
+                <ToolIcon src={icons.backend.mysql} alt="mysql" />
+              </li>
+            </ul>
+          </section>
+          <section id="backend">
+            <ul>
+              <li>General</li>
+              <li>
+                <ToolIcon src={icons.general.terminal} alt="terminal" />
+              </li>
+              <li>
+                <ToolIcon src={icons.general.git} alt="git" />
+              </li>
+            </ul>
+          </section>
         </Skills>
       </AboutMeColumn>
     </AboutMeWrapper>

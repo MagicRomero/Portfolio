@@ -76,7 +76,7 @@ const FormErrorMessage = styled.span`
   font-size: 0.8em;
 `;
 
-const ContactForm = () => {
+const ContactForm = ({ translations }) => {
   const { register, handleSubmit, formState, errors } = useForm();
 
   const onSubmit = async (data) => {
@@ -100,7 +100,7 @@ const ContactForm = () => {
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <label htmlFor="name">Name</label>
+      <label htmlFor="name">{translations.name}</label>
       <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
 
       <InputField
@@ -113,7 +113,7 @@ const ContactForm = () => {
         type="text"
         name="name"
       />
-      <label htmlFor="subject">Subject</label>
+      <label htmlFor="subject">{translations.subject}</label>
       <FormErrorMessage>{errors.subject?.message}</FormErrorMessage>
       <InputField
         ref={register({
@@ -125,7 +125,7 @@ const ContactForm = () => {
         name="subject"
       />
 
-      <label htmlFor="email">Email</label>
+      <label htmlFor="email">{translations.email}</label>
       <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
       <InputField
         ref={register({
@@ -140,7 +140,7 @@ const ContactForm = () => {
         name="email"
       />
 
-      <label htmlFor="message">Message</label>
+      <label htmlFor="message">{translations.message}</label>
       <FormErrorMessage>{errors.message?.message}</FormErrorMessage>
 
       <TextAreaField
@@ -155,7 +155,11 @@ const ContactForm = () => {
 
       <SubmitInputField
         type="submit"
-        value={formState.isSubmitting ? "Sending..." : "Send"}
+        value={
+          formState.isSubmitting
+            ? `${translations.sending}...`
+            : translations.send
+        }
         disabled={formState.isSubmitting}
       />
     </Form>

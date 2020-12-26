@@ -27,7 +27,7 @@ const LanguageLabel = styled.span`
   color: ${(props) => props.theme.buttonColor};
 `;
 
-export const PortfolioLayout = ({ children }) => {
+const PortfolioLayout = ({ children }) => {
   const router = useRouter();
   const [languageOptions, setLanguageOptions] = useState([]);
   const [defaultLanguage, setDefaultLanguage] = useState({});
@@ -103,3 +103,5 @@ export const PortfolioLayout = ({ children }) => {
     </>
   );
 };
+
+export default PortfolioLayout;

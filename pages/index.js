@@ -6,7 +6,7 @@ import Projects from "@/components/Projects/Projects";
 import Terminal from "@/components/Terminal/Terminal";
 import { useRouter } from "next/router";
 import { availableLocale } from "@/locales";
-import { PortfolioLayout } from "@/components/layouts/PortofolioLayout";
+import { PortfolioLayout } from "@/components/layouts";
 
 const StyledMainContainer = styled.main`
   width: 1200px;
