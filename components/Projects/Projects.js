@@ -1,4 +1,7 @@
+import Link from "next/link";
 import styled from "styled-components";
+import fetch from "isomorphic-unfetch";
+import { useState, useEffect } from "react";
 
 const MainWrapper = styled.div`
   padding: 1em;
@@ -74,34 +77,55 @@ const CardFooter = styled.div`
   }
 `;
 
-const ProjectCard = () => {
+const ProjectCard = ({ project, translations }) => {
+  const detail = translations.projects[project.translation_key]
   return (
     <Card>
-      <CardImage src="/assets/images/ecom.jpg" alt="project" />
+      <CardImage src={project.thumbnail} alt={detail.name} />
       <CardBody>
-        <CardTitle>Ecommerce pro</CardTitle>
+        <CardTitle>{detail.name}</CardTitle>
         <CardText>
-          Esto fue un proyecto que fue la puta ostia, conseguimos 1 millon de
-          pedidos mensuales con 0 caidas
+          {detail.description}
         </CardText>
-      </CardBody>{" "}
+      </CardBody>
       <CardFooter>
-        <button className="button button-primary">Ver demo</button>
-        <span>Source</span>
-      </CardFooter>{" "}
+        <a href={project.demo} rel="noopener noreferrer" target="_blank" className="button button-primary">{translations.demo}</a>
+        <Link href={`/projects/${project.slug}`}>{translations.detail}</Link>
+      </CardFooter>
     </Card>
   );
 };
 
-const Projects = () => {
+const Projects = ({translations}) => {
+  const [projects, setProjects] = useState([]);
+
+  useEffect(() => {
+    fetchProjects();
+  }, []);
+
+  const fetchProjects = async () => {
+    try {
+      const response = await fetch("/api/projects", {
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      });
+
+      const data = await response.json();
+
+      setProjects(data.projects || []);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <MainWrapper>
       <h3>Projects</h3>
       <ProjectsWrapper>
-        <ProjectCard />
-        <ProjectCard />
-        <ProjectCard />
-        <ProjectCard />
+        {projects.map((project) => (
+          <ProjectCard key={project.slug} project={project} translations={translations} />
+        ))}
       </ProjectsWrapper>
     </MainWrapper>
   );

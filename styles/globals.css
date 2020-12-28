@@ -76,27 +76,6 @@ a {
   color: #17a2b8;
 }
 
-.main-container {
-  width: 1200px;
-  margin: 0 auto;
-}
-
-.section-first-type,
-.section-second-type {
-  border-bottom: 1px solid var(--borderColor);
-  overflow: auto;
-  margin-top: 1em;
-  margin-bottom: 1em;
-}
-
-.section-first-type {
-  background-color: var(--mainColor);
-}
-
-.section-second-type {
-  background-color: var(--secondaryColor);
-}
-
 .button-primary {
   color: #fff;
   background-color: #7571f9;
@@ -107,14 +86,4 @@ a {
   background: #4540f7;
   color: #fff;
   border-color: #4540f7;
-}
-
-.contact-container h3 {
-  text-align: center;
-}
-
-@media screen and (max-width: 1200px) {
-  .main-container {
-    width: 95%;
-  }
 }

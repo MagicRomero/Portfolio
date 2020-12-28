@@ -2,8 +2,9 @@ import data from "../../../data/projects.json";
 
 export default async (req, res) => {
   try {
-    console.log(req);
-    const project = data["projects"][req.query.slug];
+    const project = data["projects"].find(
+      (project) => project.slug === req.query.slug
+    );
 
     if (project) {
       return res.status(200).json({ success: true, project });

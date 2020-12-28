@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { useForm } from "react-hook-form";
-import "isomorphic-fetch";
+import fetch from  "isomorphic-unfetch";
 
 const Form = styled.form`
   display: block;

@@ -162,7 +162,7 @@ const CornerBottomLeft = styled(Corner)`
   left: -5px;
 `;
 
-const Terminal = () => {
+const Terminal = ({translations}) => {
   return (
     <TerminalWrapper>
       <LeftColumn>
@@ -178,7 +178,7 @@ const Terminal = () => {
         </a>
         <Navigation>
           <li>
-            <Link href="/contact">Contact</Link>
+            <Link href="/contact">{translations.contact}</Link>
           </li>
         </Navigation>
       </NavWrapper>

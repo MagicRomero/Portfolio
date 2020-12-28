@@ -1,7 +1,17 @@
 {
-  "projects": {
-    "gallery": {
-      "name": "Gallery app"
+  "projects": [
+    {
+      "translation_key": "gallery",
+      "slug": "gallery-app",
+      "tools": [
+        "html5",
+        "css3",
+        "javascript",
+        "react"
+      ],
+      "thumbnail":  "/assets/images/projects/gallery-app.png",
+      "source": "",
+      "demo": "https://galleryappnow.surge.sh/"
     }
-  }
+  ]
 }

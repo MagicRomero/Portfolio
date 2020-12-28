@@ -27,11 +27,12 @@ const Skills = styled.div`
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+    flex-wrap:wrap;
   }
 
   & ul li:first-child {
     margin-right: 0.4em;
-    font-weight: bold;
+    font-weight: 500;
     font-family: Russo One, monospace;
     font-size: 1.2em;
   }
@@ -53,12 +54,26 @@ const ToolIcon = styled.img.attrs((props) => ({
   height: auto;
 `;
 
+const ToolList = ({ title, iconset, tools }) => {
+  return (
+    <section id={title}>
+      <ul>
+        <li>{title}</li>
+        {tools.map((tool) => (
+          <li key={tool}>
+            <ToolIcon src={icons[iconset][tool]} alt={tool} />
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+};
+
 const AboutMe = () => {
   return (
     <AboutMeWrapper>
       <AboutMeColumn>
         <h4>More about me</h4>
-
         <p>
           I build new projects just to tickle my brain and love teaching others
           how they're made.
@@ -72,57 +87,28 @@ const AboutMe = () => {
       <AboutMeColumn>
         <h4>Top Expertise</h4>
         <Skills>
-          <section id="frontend">
-            <ul>
-              <li>Frontend</li>
-              <li>
-                <ToolIcon src={icons.frontend.html5} alt="html5" />
-              </li>
-              <li>
-                <ToolIcon src={icons.frontend.css3} alt="css3" />
-              </li>
-              <li>
-                <ToolIcon src={icons.frontend.javascript} alt="javascript" />
-              </li>
-              <li>
-                <ToolIcon src={icons.frontend.typescript} alt="typescript" />
-              </li>
-              <li>
-                <ToolIcon src={icons.frontend.react} alt="react" />
-              </li>
-              <li>
-                <ToolIcon src={icons.frontend.jest} alt="jest" />
-              </li>
-            </ul>
-          </section>
-          <section id="backend">
-            <ul>
-              <li>Backend</li>
-              <li>
-                <ToolIcon src={icons.backend.php} alt="php" />
-              </li>
-              <li>
-                <ToolIcon src={icons.backend.laravel} alt="laravel" />
-              </li>
-              <li>
-                <ToolIcon src={icons.backend.node} alt="node" />
-              </li>
-              <li>
-                <ToolIcon src={icons.backend.mysql} alt="mysql" />
-              </li>
-            </ul>
-          </section>
-          <section id="backend">
-            <ul>
-              <li>General</li>
-              <li>
-                <ToolIcon src={icons.general.terminal} alt="terminal" />
-              </li>
-              <li>
-                <ToolIcon src={icons.general.git} alt="git" />
-              </li>
-            </ul>
-          </section>
+          <ToolList
+            title="Frontend"
+            iconset="frontend"
+            tools={[
+              "html5",
+              "css3",
+              "javascript",
+              "typescript",
+              "react",
+              "jest",
+            ]}
+          />
+          <ToolList
+            title="Backend"
+            iconset="backend"
+            tools={["php", "laravel", "node", "mysql"]}
+          />
+          <ToolList
+            title="General"
+            iconset="general"
+            tools={["terminal", "git"]}
+          />
         </Skills>
       </AboutMeColumn>
     </AboutMeWrapper>

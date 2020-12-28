@@ -52,7 +52,7 @@ const Home = () => {
         </StyledSectionSecondary>
 
         <StyledSectionPrimary>
-          <Projects translations={translations} />
+          <Projects translations={translations}/>
         </StyledSectionPrimary>
       </StyledMainContainer>
     </>

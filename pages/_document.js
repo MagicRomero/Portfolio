@@ -29,7 +29,7 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html lang="en">
+      <Html lang="es">
         <Head>
           <meta content="IE=edge" httpEquiv="X-UA-Compatible" />
           <meta content="#ffffff" name="theme-color" />
