@@ -1,6 +1,7 @@
 import Link from "next/link";
 import styled from "styled-components";
 import { renderTechnologyIconsFromProject } from "@/data/tools";
+import { CommonButton } from "@/components/Common/StyledComponents";
 
 const MainWrapper = styled.div`
   padding: 1em;
@@ -93,6 +94,8 @@ const CardLinks = styled.div`
   justify-content: space-between;
 `;
 
+
+
 const ProjectCard = ({ project, translations }) => {
   const detail = translations.projects[project.translation_key];
   return (
@@ -107,14 +110,14 @@ const ProjectCard = ({ project, translations }) => {
           {renderTechnologyIconsFromProject(project)}
         </CardProjectTechnologies>
         <CardLinks>
-          <a
+        <CommonButton
+            as="a"
             href={project.demo}
             rel="noopener noreferrer"
             target="_blank"
-            className="button button-primary"
           >
             {translations.demo}
-          </a>
+          </CommonButton>
           <Link
             href={`/projects/${encodeURIComponent(project.slug)}`}
             getServerSideProps

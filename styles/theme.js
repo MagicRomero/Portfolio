@@ -80,40 +80,6 @@ a {
   text-decoration: none;
   color: #17a2b8;
 }
-
-.button {
-  display: inline-block;
-  font-weight: 400;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
-  user-select: none;
-  border: 1px solid transparent;
-  padding: 0.375rem 0.75rem;
-  font-size: 0.875rem;
-  line-height: 1.5;
-  border-radius: 0.25rem;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
-    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-}
-
-.button:not(:disabled):not(.disabled) {
-  cursor: pointer;
-}
-
-.button-primary {
-  color: #fff;
-  background-color: #7571f9;
-  border-color: #7571f9;
-}
-
-.button-primary:hover {
-  background: #4540f7;
-  color: #fff;
-  border-color: #4540f7;
-}
-
-
 `;
 
 export const theme = {
