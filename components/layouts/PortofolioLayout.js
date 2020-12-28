@@ -3,13 +3,25 @@ import dynamic from "next/dynamic";
 import ReactCountryFlag from "react-country-flag";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { availableLocale } from "@/locales";
 
 const SelectNoSSR = dynamic(() => import("react-select"), { ssr: false });
+
+/**
+ * Este wrapper es para forzar al footer a siempre estar al fondo del viewport
+ * se le resta la altura del footer y este ultimo se coloca fuera de este wrapper.
+ */
+const PageWrapper = styled.main`
+  min-height: calc(100vh - 85px);
+`;
 
 const Nav = styled.nav`
   display: flex;
   justify-content: flex-end;
   padding: 0 1em;
+
+  background: ${(props) => props.theme.previewShadow};
+  box-shadow: 6px 11px 41px -28px #a99de7;
 
   & #language-selector {
     width: 100%;
@@ -25,6 +37,21 @@ const LanguageLabel = styled.span`
   margin-left: 0.3em;
   vertical-align: center;
   color: ${(props) => props.theme.buttonColor};
+`;
+
+const Footer = styled.footer`
+  height: auto;
+  max-height: 85px;
+  margin-top: auto;
+  padding: 1em 4em;
+  text-align: center;
+  background: ${(props) => props.theme.previewShadow};
+  box-shadow: 6px 11px 41px -28px #a99de7;
+  line-height: 1.35;
+
+  & a {
+    margin-left: 0.5em;
+  }
 `;
 
 const PortfolioLayout = ({ children }) => {
@@ -84,8 +111,11 @@ const PortfolioLayout = ({ children }) => {
     setLanguageOptions(options);
   };
 
+  const translations = availableLocale(router.locale || router.defaultLocale);
+
   return (
     <>
+    <PageWrapper>
       <Nav>
         <ul>
           <li id="language">
@@ -100,6 +130,19 @@ const PortfolioLayout = ({ children }) => {
         </ul>
       </Nav>
       {children}
+    </PageWrapper>
+    <Footer>
+        <p>
+          {translations.footer}
+          <a
+            href="https://www.dennisivy.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Dennis Ivy
+          </a>
+        </p>
+      </Footer>
     </>
   );
 };

@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import { availableLocale } from "@/locales";
 import { PortfolioLayout } from "@/components/layouts";
 
-const StyledMainContainer = styled.main`
+const StyledMainContainer = styled.div`
   width: 1200px;
   margin: 0 auto;
   @media screen and (max-width: 1200px) {

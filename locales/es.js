@@ -12,6 +12,7 @@ export default {
   contact: 'Contactar',
   detail: "Detalles",
   demo: 'Demo',
+  footer: 'Inspirado en el Portfolio de',
   projects: {
     gallery: {
       name: 'Galería de fotos',

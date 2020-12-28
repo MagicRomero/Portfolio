@@ -12,6 +12,7 @@ export default {
   contact: "Contact",
   detail: "Details",
   demo: 'Demo',
+  footer: 'Inspired by',
   projects: {
     gallery: {
       name: 'Gallery App',
