@@ -1,7 +1,6 @@
 import Link from "next/link";
 import styled from "styled-components";
-import fetch from "isomorphic-unfetch";
-import { useState, useEffect } from "react";
+import { ToolIcon } from "@/components/Common";
 
 const MainWrapper = styled.div`
   padding: 1em;
@@ -65,8 +64,8 @@ const CardFooter = styled.div`
   padding: 0.75rem 1.25rem;
   border-top: 1px solid rgba(0, 0, 0, 0.125);
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  align-content: center;
 
   &:last-child {
     border-radius: 0 0 calc(0.25rem - 1px) calc(0.25rem - 1px);
@@ -77,54 +76,74 @@ const CardFooter = styled.div`
   }
 `;
 
+const CardProjectTechnologies = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-bottom: 0.5em;
+  padding-bottom: 0.5em;
+`;
+
+const CardLinks = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 const ProjectCard = ({ project, translations }) => {
-  const detail = translations.projects[project.translation_key]
+  const detail = translations.projects[project.translation_key];
   return (
     <Card>
       <CardImage src={project.thumbnail} alt={detail.name} />
       <CardBody>
         <CardTitle>{detail.name}</CardTitle>
-        <CardText>
-          {detail.description}
-        </CardText>
+        <CardText>{detail.description}</CardText>
       </CardBody>
       <CardFooter>
-        <a href={project.demo} rel="noopener noreferrer" target="_blank" className="button button-primary">{translations.demo}</a>
-        <Link href={`/projects/${project.slug}`}>{translations.detail}</Link>
+        <CardProjectTechnologies>
+          {Object.keys(project.technologies).map((technology) =>
+            project.technologies[technology].map((tool) => (
+              <ToolIcon
+                iconset={technology}
+                name={tool}
+                width="35"
+                height="35"
+              />
+            ))
+          )}
+        </CardProjectTechnologies>
+        <CardLinks>
+          <a
+            href={project.demo}
+            rel="noopener noreferrer"
+            target="_blank"
+            className="button button-primary"
+          >
+            {translations.demo}
+          </a>
+          <Link href={`/projects/${project.slug}`} getServerSideProps>
+            {translations.detail}
+          </Link>
+        </CardLinks>
       </CardFooter>
     </Card>
   );
 };
 
-const Projects = ({translations}) => {
-  const [projects, setProjects] = useState([]);
-
-  useEffect(() => {
-    fetchProjects();
-  }, []);
-
-  const fetchProjects = async () => {
-    try {
-      const response = await fetch("/api/projects", {
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
-      });
-
-      const data = await response.json();
-
-      setProjects(data.projects || []);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
+const Projects = ({ translations, projects = [] }) => {
   return (
     <MainWrapper>
       <h3>Projects</h3>
       <ProjectsWrapper>
         {projects.map((project) => (
-          <ProjectCard key={project.slug} project={project} translations={translations} />
+          <ProjectCard
+            key={project.slug}
+            project={project}
+            translations={translations}
+          />
         ))}
       </ProjectsWrapper>
     </MainWrapper>

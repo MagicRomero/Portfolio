@@ -1,4 +1,5 @@
 import Head from "next/head";
+import fetch from "isomorphic-unfetch";
 import styled from "styled-components";
 import AboutMe from "@/components/AboutMe/AboutMe";
 import Header from "@/components/Header/Header";
@@ -29,7 +30,7 @@ const StyledSectionSecondary = styled(StyledSection)`
   background-color: ${(props) => props.theme.secondaryBackgroundColor};
 `;
 
-const Home = () => {
+const Home = ({projects}) => {
   const router = useRouter();
 
   const translations = availableLocale(router.locale || router.defaultLocale);
@@ -52,7 +53,7 @@ const Home = () => {
         </StyledSectionSecondary>
 
         <StyledSectionPrimary>
-          <Projects translations={translations}/>
+          <Projects translations={translations} projects={projects || []}/>
         </StyledSectionPrimary>
       </StyledMainContainer>
     </>
@@ -62,5 +63,27 @@ const Home = () => {
 Home.getLayout = (page) => {
   return <PortfolioLayout {...page.props}>{page}</PortfolioLayout>;
 };
+
+export const getServerSideProps = async (ctx) => {
+  if (ctx.req?.headers) {
+    const protocol =
+      process.env.NODE_ENV === "production" ? "https://" : "http://";
+
+    const url = `${protocol}${ctx.req.headers.host}/api/projects`;
+
+    const response = await fetch(url, {
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    });
+
+    const data = await response.json();
+
+    return { props: { projects: data.projects || [] } };
+  }
+
+  return { props: { projects: [] } };
+};
+
 
 export default Home;

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import icons from "@/data/tools";
+import { ToolIcon } from "../Common";
 
 const AboutMeWrapper = styled.div`
   display: grid;
@@ -45,14 +46,6 @@ const Skills = styled.div`
   }
 `;
 
-const ToolIcon = styled.img.attrs((props) => ({
-  src: props.src,
-  alt: props.alt,
-  width: props.width || "45",
-  height: props.height || "45",
-}))`
-  height: auto;
-`;
 
 const ToolList = ({ title, iconset, tools }) => {
   return (
@@ -61,7 +54,7 @@ const ToolList = ({ title, iconset, tools }) => {
         <li>{title}</li>
         {tools.map((tool) => (
           <li key={tool}>
-            <ToolIcon src={icons[iconset][tool]} alt={tool} />
+            <ToolIcon iconset={iconset} name={tool} />
           </li>
         ))}
       </ul>

@@ -3,13 +3,15 @@
     {
       "translation_key": "gallery",
       "slug": "gallery-app",
-      "tools": [
-        "html5",
-        "css3",
-        "javascript",
-        "react"
-      ],
-      "thumbnail":  "/assets/images/projects/gallery-app.png",
+      "technologies": {
+        "frontend": [
+          "html5",
+          "css3",
+          "javascript",
+          "react"
+        ]
+      },
+      "thumbnail": "/assets/images/projects/gallery-app.png",
       "source": "",
       "demo": "https://galleryappnow.surge.sh/"
     }
