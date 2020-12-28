@@ -3,7 +3,7 @@ import data from "../../../data/projects.json";
 export default async (req, res) => {
   try {
     const project = data["projects"].find(
-      (project) => project.slug === req.query.slug
+      (project) => project.slug.trim() === req.query.slug.trim()
     );
 
     if (project) {

@@ -5,4 +5,5 @@ module.exports = withImages({
     locales: ["en", "es"],
     defaultLocale: "es",
   },
+  reactStrictMode: true,
 });

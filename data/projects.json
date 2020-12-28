@@ -7,8 +7,7 @@
         "frontend": [
           "html5",
           "css3",
-          "javascript",
-          "react"
+          "javascript"
         ]
       },
       "thumbnail": "/assets/images/projects/gallery-app.png",

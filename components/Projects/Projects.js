@@ -1,6 +1,6 @@
 import Link from "next/link";
 import styled from "styled-components";
-import { ToolIcon } from "@/components/Common";
+import { renderTechnologyIconsFromProject } from "@/data/tools";
 
 const MainWrapper = styled.div`
   padding: 1em;
@@ -104,16 +104,7 @@ const ProjectCard = ({ project, translations }) => {
       </CardBody>
       <CardFooter>
         <CardProjectTechnologies>
-          {Object.keys(project.technologies).map((technology) =>
-            project.technologies[technology].map((tool) => (
-              <ToolIcon
-                iconset={technology}
-                name={tool}
-                width="35"
-                height="35"
-              />
-            ))
-          )}
+          {renderTechnologyIconsFromProject(project)}
         </CardProjectTechnologies>
         <CardLinks>
           <a
@@ -124,7 +115,10 @@ const ProjectCard = ({ project, translations }) => {
           >
             {translations.demo}
           </a>
-          <Link href={`/projects/${project.slug}`} getServerSideProps>
+          <Link
+            href={`/projects/${encodeURIComponent(project.slug)}`}
+            getServerSideProps
+          >
             {translations.detail}
           </Link>
         </CardLinks>
