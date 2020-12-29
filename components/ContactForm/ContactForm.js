@@ -139,13 +139,16 @@ const ContactForm = ({ translations }) => {
         name="email"
       />
 
-      <label htmlFor="message">{translations.message}</label>
-      <FormErrorMessage>{errors.message?.message}</FormErrorMessage>
+      <label htmlFor="message">{translations.contact_message}</label>
+      <FormErrorMessage>{errors.body?.message}</FormErrorMessage>
 
       <TextAreaField
         ref={register({
-          required: "Invalid Message",
-          pattern: /^[\w\s,.]*$/,
+          required: "Message is required",
+          pattern: {
+             value: /^[\w\s,.-_'+\(\)¡!¿?€ñÑ]*$/,
+             message: "El mensaje tiene caracteres no permitidos"
+          }
         })}
         rows="15"
         id="message"

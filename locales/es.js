@@ -4,7 +4,7 @@ export default {
   name: "Nombre",
   subject: "Asunto",
   email: "Correo Electrónico",
-  message: "Mensaje",
+  contact_message: "Mensaje",
   get_in_touch: "Contacta conmigo",
   go_back: "Volver atrás",
   sending: "Enviando",
