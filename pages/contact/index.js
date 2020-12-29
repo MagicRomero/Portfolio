@@ -19,8 +19,6 @@ const ContactPage = () => {
   return (
     <ContactContainer>
       <h3 className="">{translations["get_in_touch"]}</h3>
-      <Link href="/">{translations["go_back"]}</Link>
-
       <ContactForm translations={translations} />
     </ContactContainer>
   );

@@ -1,5 +1,6 @@
-import styled from "styled-components";
+import Link from "next/link";
 import dynamic from "next/dynamic";
+import styled from "styled-components";
 import ReactCountryFlag from "react-country-flag";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -17,11 +18,17 @@ const PageWrapper = styled.main`
 
 const Nav = styled.nav`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items:center;
+  flex-wrap: wrap;
   padding: 0 1em;
 
   background: ${(props) => props.theme.previewShadow};
   box-shadow: 6px 11px 41px -28px #a99de7;
+
+  & ul {
+    margin-left: auto;
+  }
 
   & #language-selector {
     width: 100%;
@@ -115,23 +122,27 @@ const PortfolioLayout = ({ children }) => {
 
   return (
     <>
-    <PageWrapper>
-      <Nav>
-        <ul>
-          <li id="language">
-            <SelectNoSSR
-              inputId="react-no-ssr-language-selector"
-              instanceId="react-language-selector"
-              onChange={changeLanguage}
-              defaultValue={defaultLanguage}
-              options={languageOptions}
-            />
-          </li>
-        </ul>
-      </Nav>
-      {children}
-    </PageWrapper>
-    <Footer>
+      <PageWrapper>
+        <Nav>
+          {router.pathname !== "/" && (
+            <Link href="/">{translations.go_back}</Link>
+          )}
+
+          <ul>
+            <li id="language">
+              <SelectNoSSR
+                inputId="react-no-ssr-language-selector"
+                instanceId="react-language-selector"
+                onChange={changeLanguage}
+                defaultValue={defaultLanguage}
+                options={languageOptions}
+              />
+            </li>
+          </ul>
+        </Nav>
+        {children}
+      </PageWrapper>
+      <Footer>
         <p>
           {translations.footer}
           <a

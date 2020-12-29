@@ -64,7 +64,7 @@ const ProjectDetailPage = ({ project }) => {
               showArrows={false}
               autoSlide={5000}
               responsive={[
-                { breakPoint: 1280, cardsToShow: 4 },
+                { breakPoint: 1280, cardsToShow: 3 },
                 { breakPoint: 760, cardsToShow: 2 },
                 { breakPoint: 480, cardsToShow: 1 },
               ]}
