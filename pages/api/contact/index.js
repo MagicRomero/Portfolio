@@ -28,13 +28,14 @@ export default async (req, res) => {
 
         const transportObject = {
           host: process.env.SMTP_HOST,
-          port: parseInt(process.env.SMTP_PORT) || 587,
+          port: process.env.NODE_ENV !== 'production' ? 587 : parseInt(process.env.SMTP_PORT),
           secure: process.env.NODE_ENV === "production",
           auth: {
             user: process.env.SMTP_USER,
             pass: process.env.SMTP_PASS,
           },
         };
+        
         const transporter = nodemailer.createTransport(transportObject);
 
         const { name, subject, email, message } = req.body;
@@ -56,6 +57,7 @@ export default async (req, res) => {
         break;
     }
   } catch (error) {
+    console.log("error ", error)
     return res.status(501).json({ success: false, error });
   }
 };

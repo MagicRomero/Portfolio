@@ -145,7 +145,7 @@ const ContactForm = ({ translations }) => {
       <TextAreaField
         ref={register({
           required: "Invalid Message",
-          pattern: /^[\w\s]*$/,
+          pattern: /^[\w\s,.]*$/,
         })}
         rows="15"
         id="message"
