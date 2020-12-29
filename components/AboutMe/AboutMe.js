@@ -9,6 +9,10 @@ const AboutMeWrapper = styled.div`
   padding-top: 50px;
   gap: 100px;
   padding: 2em;
+
+  & p {
+    line-height: 1.20;
+  }
 `;
 const AboutMeColumn = styled.div`
   & h4 {
@@ -62,19 +66,17 @@ const ToolList = ({ title, iconset, tools }) => {
   );
 };
 
-const AboutMe = () => {
+const AboutMe = ({translations}) => {
   return (
     <AboutMeWrapper>
       <AboutMeColumn>
-        <h4>More about me</h4>
+        <h4>{translations.more_about_me}</h4>
         <p>
-          I build new projects just to tickle my brain and love teaching others
-          how they're made.
+         {translations.about_me}.
         </p>
 
         <p>
-          While I keep busy teaching courses, I still take interviews in search
-          of a great team & projects that interest me.
+          {translations.about_me_extended}.
         </p>
       </AboutMeColumn>
       <AboutMeColumn>

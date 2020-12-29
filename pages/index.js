@@ -1,5 +1,4 @@
 import Head from "next/head";
-import fetch from "isomorphic-unfetch";
 import AboutMe from "@/components/AboutMe/AboutMe";
 import Header from "@/components/Header/Header";
 import Projects from "@/components/Projects/Projects";

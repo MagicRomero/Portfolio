@@ -1,4 +1,3 @@
-import fetch from "isomorphic-unfetch";
 import styled from "styled-components";
 import Slider from "react-styled-carousel";
 import { useRouter } from "next/router";

@@ -23,7 +23,7 @@ const TerminalWrapper = styled.div`
 
 const Column = styled.div`
   padding-top: 50px;
-  padding-bottom: 70px;
+  padding-bottom: 160px;
 `;
 
 const LeftColumn = styled(Column)`
@@ -187,10 +187,9 @@ const Terminal = ({translations}) => {
           <Preview>
             <CornerTopLeft />
             <CornerTopRight />
-            <h3>What I Do</h3>
+            <h3>{translations.what_i_do}</h3>
             <p>
-              I was a lead developer in a past life, now I enjoy teaching
-              courses.
+              {translations.about_what_i_do}
             </p>
             <CornerBottomRight />
             <CornerBottomLeft />

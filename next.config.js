@@ -5,5 +5,11 @@ module.exports = withImages({
     locales: ["en", "es"],
     defaultLocale: "es",
   },
+  domains: [
+    {
+      domain: "danieldeveloper.dev",
+      defaultLocale: "es",
+    },
+  ],
   reactStrictMode: true,
 });
