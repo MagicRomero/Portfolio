@@ -152,7 +152,7 @@ const ContactForm = ({ translations }) => {
         })}
         rows="15"
         id="message"
-        name="message"
+        name="body"
       ></TextAreaField>
 
       <SubmitInputField
