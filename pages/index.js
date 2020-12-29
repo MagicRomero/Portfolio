@@ -1,20 +1,21 @@
 import Head from "next/head";
 import fetch from "isomorphic-unfetch";
-import styled from "styled-components";
 import AboutMe from "@/components/AboutMe/AboutMe";
 import Header from "@/components/Header/Header";
 import Projects from "@/components/Projects/Projects";
 import Terminal from "@/components/Terminal/Terminal";
-import { useRouter } from "next/router";
-import { availableLocale } from "@/locales";
+import { useContext } from "react";
 import { PortfolioLayout } from "@/components/layouts";
-import { StyledMainContainer, StyledSectionPrimary, StyledSectionSecondary } from "@/components/Common/StyledComponents";
+import {
+  StyledMainContainer,
+  StyledSectionPrimary,
+  StyledSectionSecondary,
+} from "@/components/Common/StyledComponents";
+import { GlobalContext } from "@/lib/context";
 
-
-const Home = ({projects}) => {
-  const router = useRouter();
-
-  const translations = availableLocale(router.locale || router.defaultLocale);
+const Home = ({ projects }) => {
+  const context = useContext(GlobalContext);
+  const { translations } = context;
 
   return (
     <>
@@ -34,7 +35,7 @@ const Home = ({projects}) => {
         </StyledSectionSecondary>
 
         <StyledSectionPrimary>
-          <Projects translations={translations} projects={projects || []}/>
+          <Projects projects={projects || []} translations={translations} />
         </StyledSectionPrimary>
       </StyledMainContainer>
     </>
@@ -65,6 +66,5 @@ export const getServerSideProps = async (ctx) => {
 
   return { props: { projects: [] } };
 };
-
 
 export default Home;

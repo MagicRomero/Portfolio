@@ -48,8 +48,9 @@ const ThemeDot = styled.div`
   }
 `;
 
-const Header = ({ translations, themeSelector }) => {
+const Header = ({ themeSelector }) => {
   const context = useContext(GlobalContext);
+  const translations = context.translations;
 
   const updateTheme = (theme) => context.setTheme(theme);
 

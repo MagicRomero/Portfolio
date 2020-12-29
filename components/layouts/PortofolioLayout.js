@@ -3,8 +3,8 @@ import dynamic from "next/dynamic";
 import styled from "styled-components";
 import ReactCountryFlag from "react-country-flag";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { availableLocale } from "@/locales";
+import { useEffect, useState, useContext } from "react";
+import { GlobalContext } from "@/lib/context";
 
 const SelectNoSSR = dynamic(() => import("react-select"), { ssr: false });
 
@@ -19,7 +19,7 @@ const PageWrapper = styled.main`
 const Nav = styled.nav`
   display: flex;
   justify-content: space-between;
-  align-items:center;
+  align-items: center;
   flex-wrap: wrap;
   padding: 0 1em;
 
@@ -63,6 +63,10 @@ const Footer = styled.footer`
 
 const PortfolioLayout = ({ children }) => {
   const router = useRouter();
+
+  const context = useContext(GlobalContext);
+  const translations = context.translations;
+
   const [languageOptions, setLanguageOptions] = useState([]);
   const [defaultLanguage, setDefaultLanguage] = useState({});
 
@@ -80,6 +84,7 @@ const PortfolioLayout = ({ children }) => {
     const defaultLanguage = options.find(
       (option) => option.value === router.locale
     );
+
 
     setDefaultLanguage(defaultLanguage);
   };
@@ -114,11 +119,9 @@ const PortfolioLayout = ({ children }) => {
     });
 
     defaultSelectorLanguage(options);
-
     setLanguageOptions(options);
-  };
 
-  const translations = availableLocale(router.locale || router.defaultLocale);
+  };
 
   return (
     <>

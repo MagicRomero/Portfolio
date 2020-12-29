@@ -6,6 +6,7 @@ import { DefaultSeo } from "next-seo";
 
 function MyApp({ Component, pageProps }) {
   const getLayout = Component.getLayout || ((page) => page);
+  
   return (
     <ContextProvider>
       <GlobalContext.Consumer>
