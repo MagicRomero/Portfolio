@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import icons from "@/data/tools";
+import images from "@/data/images";
 import { ToolIcon } from "../Common";
 
 const AboutMeWrapper = styled.div`
@@ -11,7 +11,7 @@ const AboutMeWrapper = styled.div`
   padding: 2em;
 
   & p {
-    line-height: 1.20;
+    line-height: 1.2;
   }
 `;
 const AboutMeColumn = styled.div`
@@ -32,7 +32,7 @@ const Skills = styled.div`
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    flex-wrap:wrap;
+    flex-wrap: wrap;
   }
 
   & ul li:first-child {
@@ -50,15 +50,14 @@ const Skills = styled.div`
   }
 `;
 
-
-const ToolList = ({ title, iconset, tools }) => {
+const ToolList = ({ category, title, iconset, tools }) => {
   return (
     <section id={title}>
       <ul>
         <li>{title}</li>
         {tools.map((tool) => (
           <li key={tool}>
-            <ToolIcon iconset={iconset} name={tool} />
+            <ToolIcon category={category} iconset={iconset} name={tool} />
           </li>
         ))}
       </ul>
@@ -66,26 +65,21 @@ const ToolList = ({ title, iconset, tools }) => {
   );
 };
 
-const AboutMe = ({translations}) => {
+const AboutMe = ({ translations }) => {
   return (
     <AboutMeWrapper>
       <AboutMeColumn>
         <h4>{translations.more_about_me}</h4>
-        <p>
-         {translations.about_me}.
-        </p>
-        <p>
-         {translations.about_me_paragraph}.
-        </p>
+        <p>{translations.about_me}.</p>
+        <p>{translations.about_me_paragraph}.</p>
 
-        <p>
-          {translations.about_me_extended}.
-        </p>
+        <p>{translations.about_me_extended}.</p>
       </AboutMeColumn>
       <AboutMeColumn>
         <h4>Top Expertise</h4>
         <Skills>
           <ToolList
+            category="tools"
             title="Frontend"
             iconset="frontend"
             tools={[
@@ -98,11 +92,13 @@ const AboutMe = ({translations}) => {
             ]}
           />
           <ToolList
+            category="tools"
             title="Backend"
             iconset="backend"
             tools={["php", "laravel", "node", "mysql"]}
           />
           <ToolList
+            category="tools"
             title="General"
             iconset="general"
             tools={["terminal", "git", "docker"]}

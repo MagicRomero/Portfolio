@@ -28,7 +28,9 @@ export default {
   catpcha_error: "The captcha token is not valid, form submit not allowed",
   contact_success:
     "Thanks for getting in contact with me! I'll answer you as soon as I see it in my inbox",
-  projects: {
+    contact_seo_title: "Contact me",
+    contact_seo_description: "If you want to talk to me you can do it from this form, Thanks in advance!",
+    projects: {
     gallery: {
       name: "Gallery App",
       description:

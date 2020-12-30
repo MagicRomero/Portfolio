@@ -1,6 +1,7 @@
 {
   "projects": [
     {
+      "images_key": "gallery",
       "translation_key": "gallery",
       "slug": "gallery-app",
       "technologies": {
@@ -10,12 +11,13 @@
           "javascript"
         ]
       },
-      "thumbnail": "/assets/images/projects/gallery/thumbnail.png",
-      "sliders": null,
+      "thumbnail": "gallery/thumbnail.png",
+      "sliders": [],
       "source": "",
       "demo": "https://galleryappnow.surge.sh"
     },
     {
+      "images_key": "portfolio",
       "translation_key": "portfolio",
       "slug": "portfolio-website",
       "technologies": {
@@ -27,17 +29,14 @@
           "styled_components"
         ]
       },
-      "thumbnail": "/assets/images/projects/portfolio/thumbnail.png",
-      "sliders": {
-        "basePath": "/assets/images/projects/portfolio/slider",
-        "images": [
-          "theme-light",
-          "theme-blue",
-          "theme-green",
-          "theme-purple",
-          "contact-form"
-        ]
-      },
+      "thumbnail": "portfolio/thumbnail.png",
+      "sliders": [
+        "theme-light",
+        "theme-blue",
+        "theme-green",
+        "theme-purple",
+        "contact-form"
+      ],
       "source": "https://github.com/MagicRomero/Portfolio",
       "demo": "https://danieldeveloper.dev"
     }

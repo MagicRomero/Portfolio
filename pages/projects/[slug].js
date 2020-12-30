@@ -1,13 +1,16 @@
 import dynamic from "next/dynamic";
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import { PortfolioLayout } from "@/components/layouts";
+import { renderTechnologyIconsFromProject } from "@/data/images";
+import { NextSeo } from "next-seo";
 import { availableLocale } from "@/locales";
+import { PortfolioLayout } from "@/components/layouts";
 import {
   StyledMainContainer,
   StyledSectionSecondary,
+  CustomImage,
 } from "@/components/Common/StyledComponents";
-import { renderTechnologyIconsFromProject } from "@/data/tools";
+import { OptimizedImage } from "@/components/Common";
 
 const Carousel = dynamic(() => import("styled-components-carousel"), {
   ssr: false,
@@ -44,15 +47,6 @@ const ProjectSliderCard = styled.div`
   padding: 0 0.5em;
 `;
 
-const SlideImage = styled.img.attrs((props) => ({
-  alt: props.alt,
-  src: props.src,
-}))`
-  width: 100%;
-  height: auto;
-  display: block;
-`;
-
 const ProjectDetailPage = ({ project }) => {
   const router = useRouter();
   const translations = availableLocale(router.locale || router.defaultLocale);
@@ -61,59 +55,68 @@ const ProjectDetailPage = ({ project }) => {
     const detail = translations.projects[project.translation_key];
 
     return (
-      <StyledMainContainer>
-        <ProjectCard>
-          <ProjectHeader>
-            <h2>{detail.name}</h2>
-            {renderTechnologyIconsFromProject(project, 40, 40)}
-          </ProjectHeader>
-          <ProjectStyledSection>
-            <Carousel
-              slidesToShow={3}
-              center
-              breakpoints={[
-                {
-                  size: 1280,
-                  settings: {
-                    slidesToShow: 3,
-                    showArrows: true,
-                    showIndicator: true,
-                    swipeable: true,
-                  },
-                },
-                {
-                  size: 760,
-                  settings: {
-                    slidesToShow: 2,
-                    showArrows: false,
-                    showIndicator: true,
-                    swipeable: true,
-                  },
-                },
-                {
-                  size: 480,
-                  settings: {
-                    slidesToShow: 1,
-                    showArrows: false,
-                    showIndicator: false,
-                    swipeable: true,
-                  },
-                },
-              ]}
-            >
-              {project.sliders &&
-                project.sliders.images.map((name) => (
-                  <ProjectSliderCard key={name}>
-                    <SlideImage
-                      src={`${project.sliders.basePath}/${name}.png`}
-                      alt={name}
-                    />
-                  </ProjectSliderCard>
-                ))}
-            </Carousel>
-          </ProjectStyledSection>
-        </ProjectCard>
-      </StyledMainContainer>
+      <>
+        <NextSeo
+          title={`Daniel Romero - ${detail.name}`}
+          description={`Daniel Romero - ${detail.description}`}
+        />
+        <StyledMainContainer>
+          <ProjectCard>
+            <ProjectHeader>
+              <h2>{detail.name}</h2>
+              {renderTechnologyIconsFromProject(project, 40, 40)}
+            </ProjectHeader>
+            <ProjectStyledSection>
+              {!!project.sliders.length && (
+                <Carousel
+                  slidesToShow={3}
+                  center
+                  breakpoints={[
+                    {
+                      size: 1280,
+                      settings: {
+                        slidesToShow: 3,
+                        showArrows: true,
+                        showIndicator: true,
+                        swipeable: true,
+                      },
+                    },
+                    {
+                      size: 760,
+                      settings: {
+                        slidesToShow: 2,
+                        showArrows: false,
+                        showIndicator: true,
+                        swipeable: true,
+                      },
+                    },
+                    {
+                      size: 480,
+                      settings: {
+                        slidesToShow: 1,
+                        showArrows: false,
+                        showIndicator: false,
+                        swipeable: true,
+                      },
+                    },
+                  ]}
+                >
+                  {project.sliders.map((sliderImageName) => (
+                    <ProjectSliderCard key={sliderImageName}>
+                      <OptimizedImage
+                        category="projects"
+                        name={`${project.images_key}/sliders/${sliderImageName}`}
+                        alt={sliderImageName}
+                        fullWidth
+                      />
+                    </ProjectSliderCard>
+                  ))}
+                </Carousel>
+              )}
+            </ProjectStyledSection>
+          </ProjectCard>
+        </StyledMainContainer>
+      </>
     );
   }
 

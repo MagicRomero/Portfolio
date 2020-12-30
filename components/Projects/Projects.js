@@ -1,7 +1,9 @@
 import Link from "next/link";
 import styled from "styled-components";
-import { renderTechnologyIconsFromProject } from "@/data/tools";
+import { renderTechnologyIconsFromProject } from "@/data/images";
 import { CommonButton } from "@/components/Common/StyledComponents";
+import { CustomImage } from "@/components/Common/StyledComponents";
+import { OptimizedImage } from "../Common";
 
 const MainWrapper = styled.div`
   padding: 1em;
@@ -33,12 +35,8 @@ const Card = styled.div`
   background: ${(props) => props.theme.secondaryBackgroundColor};
 `;
 
-const CardImage = styled.img.attrs((props) => ({
-  alt: props.alt,
-  src: props.src,
-}))`
-  max-width: 100%;
-  object-fit: cover;
+const CardImage = styled(CustomImage)`
+  width:100%;
   border-style: none;
 `;
 
@@ -103,7 +101,9 @@ const ProjectCard = ({ project, translations }) => {
   const detail = translations.projects[project.translation_key];
   return (
     <Card>
-      <CardImage src={project.thumbnail} alt={detail.name} />
+      <OptimizedImage category="projects" name={`${project.images_key}/thumbnail`} alt={detail.name}>
+        <CardImage />
+      </OptimizedImage>
       <CardBody>
         <CardTitle>{detail.name}</CardTitle>
         <CardText>{detail.description}</CardText>

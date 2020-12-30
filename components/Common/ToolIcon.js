@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import icons from "@/data/tools";
+import styled from "styled-components";
+import { icons } from "@/data/images";
 
 const Icon = styled.img.attrs((props) => ({
   src: props.src,
@@ -11,7 +11,7 @@ const Icon = styled.img.attrs((props) => ({
 `;
 
 const ToolIcon = ({ iconset, name, ...restProps }) => (
-  <Icon src={icons[iconset][name]} alt={name} {...restProps} />
+  <Icon src={icons.tools[iconset][name]} alt={name} {...restProps} />
 );
 
 export default ToolIcon;

@@ -1,5 +1,7 @@
 import Link from "next/link";
 import styled from "styled-components";
+import { CustomImage } from "@/components/Common/StyledComponents";
+import { OptimizedImage } from "@/components/Common";
 
 const TerminalWrapper = styled.div`
   background-color: ${(props) => props.theme.secondaryBackgroundColor};
@@ -40,13 +42,7 @@ const RightColumn = styled(Column)`
   }
 `;
 
-const ProfileImage = styled.img.attrs((props) => ({
-  src: props.src,
-  alt: props.alt,
-  width: props.width || 200,
-  height: props.height || 200,
-}))`
-  display: block;
+const ProfileImage = styled(CustomImage)`
   margin: 0 auto;
   object-fit: cover;
   border: 2px solid ${(props) => props.theme.borderColor};
@@ -162,11 +158,13 @@ const CornerBottomLeft = styled(Corner)`
   left: -5px;
 `;
 
-const Terminal = ({translations}) => {
+const Terminal = ({ translations }) => {
   return (
     <TerminalWrapper>
       <LeftColumn>
-        <ProfileImage src="/assets/images/profile.jpeg" alt="picture of me" />
+        <OptimizedImage name="profileImage" alt="picture of me">
+          <ProfileImage />
+        </OptimizedImage>
       </LeftColumn>
       <NavWrapper>
         <a href="/">
@@ -188,9 +186,7 @@ const Terminal = ({translations}) => {
             <CornerTopLeft />
             <CornerTopRight />
             <h3>{translations.what_i_do}</h3>
-            <p>
-              {translations.about_what_i_do}
-            </p>
+            <p>{translations.about_what_i_do}</p>
             <CornerBottomRight />
             <CornerBottomLeft />
           </Preview>

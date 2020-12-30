@@ -1,5 +1,17 @@
 import styled from "styled-components";
 
+export const CustomImage = styled.img.attrs((props) => ({
+  src: props.src,
+  alt: props.alt,
+  width: props.width || 200,
+  height: props.height || 200,
+}))`
+  display: block;
+  max-width: 100%;
+  height: auto;
+`;
+
+
 export const StyledMainContainer = styled.div`
   width: 1200px;
   margin: 0 auto;
@@ -90,7 +102,6 @@ export const SuccessAlert = styled(Alert)`
   }
 `;
 
-
 export const DangerAlert = styled(Alert)`
   background-color: #f7a7a3;
   border-left: 5px solid #8f130c;
@@ -100,4 +111,3 @@ export const DangerAlert = styled(Alert)`
     color: #8f130c;
   }
 `;
-

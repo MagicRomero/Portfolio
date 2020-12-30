@@ -1,6 +1,8 @@
-const withImages = require("next-images");
+const withOptimizedImages = require("next-optimized-images");
 
-module.exports = withImages({
+module.exports = withOptimizedImages({
+  optimizeImagesInDev: true,
+  pageExtensions: ["mdx", "jsx", "js", "ts", "tsx"],
   i18n: {
     locales: ["en", "es"],
     defaultLocale: "es",
@@ -8,6 +10,10 @@ module.exports = withImages({
   domains: [
     {
       domain: "danieldeveloper.dev",
+      defaultLocale: "es",
+    },
+    {
+      domain: "localhost",
       defaultLocale: "es",
     },
   ],

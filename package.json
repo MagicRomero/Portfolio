@@ -11,8 +11,14 @@
     "@next/mdx": "^10.0.4",
     "babel-plugin-styled-components": "^1.12.0",
     "express-validator": "^6.9.0",
+    "file-loader": "^6.2.0",
+    "gray-matter": "^4.0.2",
+    "imagemin-mozjpeg": "^9.0.0",
+    "imagemin-optipng": "^8.0.0",
+    "imagemin-svgo": "^8.0.0",
+    "jimp": "^0.16.1",
     "next": "10.0.3",
-    "next-images": "^1.6.2",
+    "next-optimized-images": "^2.6.2",
     "next-seo": "^4.17.0",
     "nodemailer": "^6.4.17",
     "preact": "^10.5.7",
@@ -22,9 +28,12 @@
     "react-google-recaptcha-v3": "^1.7.1",
     "react-hook-form": "^6.13.1",
     "react-select": "^3.1.1",
+    "responsive-loader": "^2.3.0",
     "styled-components": "^5.2.1",
     "styled-components-carousel": "^0.2.0",
-    "styled-normalize": "^8.0.7"
+    "styled-normalize": "^8.0.7",
+    "url-loader": "^4.1.1",
+    "webp-loader": "^0.6.0"
   },
   "devDependencies": {}
 }
