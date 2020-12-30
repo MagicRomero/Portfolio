@@ -1,4 +1,7 @@
 import SEO from "@/next-seo.config";
+import {
+  GoogleReCaptchaProvider,
+} from "react-google-recaptcha-v3";
 import { ThemeProvider } from "styled-components";
 import { GlobalContext, ContextProvider } from "@/lib/context.js";
 import { theme, GlobalStyles } from "@/styles/theme.js";
@@ -6,16 +9,18 @@ import { DefaultSeo } from "next-seo";
 
 function MyApp({ Component, pageProps }) {
   const getLayout = Component.getLayout || ((page) => page);
-  
+
   return (
     <ContextProvider>
       <GlobalContext.Consumer>
         {(value) => (
-          <ThemeProvider theme={theme[value.theme]}>
-            <GlobalStyles />
-            <DefaultSeo {...SEO} />
-            {getLayout(<Component {...pageProps} />)}
-          </ThemeProvider>
+          <GoogleReCaptchaProvider reCaptchaKey={process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA_KEY}>
+            <ThemeProvider theme={theme[value.theme]}>
+              <GlobalStyles />
+              <DefaultSeo {...SEO} />
+              {getLayout(<Component {...pageProps} />)}
+            </ThemeProvider>
+          </GoogleReCaptchaProvider>
         )}
       </GlobalContext.Consumer>
     </ContextProvider>

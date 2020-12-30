@@ -10,6 +10,8 @@ import node from "@/public/assets/tools/node.png";
 import php from "@/public/assets/tools/php.png";
 import terminal from "@/public/assets/tools/terminal.png";
 import git from "@/public/assets/tools/git.png";
+import docker from "@/public/assets/tools/docker.png";
+
 import { ToolIcon } from "@/components/Common";
 
 export default {
@@ -30,10 +32,15 @@ export default {
   general: {
     git,
     terminal,
+    docker,
   },
 };
 
-export const renderTechnologyIconsFromProject = (project = {}, width = "35", height = "35") => {
+export const renderTechnologyIconsFromProject = (
+  project = {},
+  width = "35",
+  height = "35"
+) => {
   return Object.keys(project.technologies).map((technology) =>
     project.technologies[technology].map((tool) => (
       <ToolIcon

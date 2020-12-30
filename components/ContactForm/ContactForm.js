@@ -1,5 +1,9 @@
+import { useState } from 'react';
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import styled, { css } from "styled-components";
 import { useForm } from "react-hook-form";
+import { SuccessAlert, DangerAlert, Alert } from '@/components/Common/StyledComponents'
+
 
 const Form = styled.form`
   display: block;
@@ -77,28 +81,69 @@ const FormErrorMessage = styled.span`
 
 const ContactForm = ({ translations }) => {
   const { register, handleSubmit, formState, errors } = useForm();
+  const { executeRecaptcha } = useGoogleReCaptcha();
 
+  const [loading, setLoading] = useState(false);
+  const [alert, setAlert] = useState({ type: '', message: '' })
+
+  const showAlert = () => {
+    switch (alert.type) {
+      case 'simple':
+        return <Alert><p>{alert.message}</p></Alert>
+      case 'danger':
+        return <DangerAlert><p>{alert.message}</p></DangerAlert>
+      case 'success':
+        return <SuccessAlert><p>{alert.message}</p></SuccessAlert>
+      default:
+        return ''
+    }
+
+
+    return null;
+  }
   const onSubmit = async (data) => {
     try {
-      const result = await fetch("/api/contact", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
-      });
+      setLoading(true);
+      setAlert({ type: '', message: '' });
 
-      const response = await result.json();
+      if (executeRecaptcha) {
+        const token = await executeRecaptcha("homepage");
 
-      if (response.errors && response.errors.length) {
+        if (!token) {
+          return setAlert({ type: 'danger', message: translations.captcha_error })
+        }
+
+        const result = await fetch("/api/contact", {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        });
+
+        const response = await result.json();
+
+        if (response.success) {
+          setAlert({ type: 'success', message: translations.contact_success })
+        }
+
+        if (response.errors && response.errors.length) {
+          setAlert({ type: 'danger', message: 'errors everywhere' })
+        }
       }
+
+      setLoading(false);
+
     } catch (error) {
-      console.error(error);
+      setLoading(false);
+      setAlert({ type: 'danger', message: error })
     }
   };
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
+      {showAlert()}
+
       <label htmlFor="name">{translations.name}</label>
       <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
 
@@ -146,26 +191,28 @@ const ContactForm = ({ translations }) => {
         ref={register({
           required: "Message is required",
           pattern: {
-             value: /^[\w\s,.-_'+\(\)¡!¿?€ñÑ]*$/,
-             message: "El mensaje tiene caracteres no permitidos"
-          }
+            value: /^[\w\s,.-_'+\(\)¡!¿?€ñÑ]*$/,
+            message: "El mensaje tiene caracteres no permitidos",
+          },
         })}
         rows="15"
         id="message"
         name="body"
-      ></TextAreaField>
+      />
 
       <SubmitInputField
         type="submit"
         value={
-          formState.isSubmitting
+          formState.isSubmitting || loading
             ? `${translations.sending}...`
             : translations.send
         }
-        disabled={formState.isSubmitting}
+        disabled={formState.isSubmitting || loading}
       />
     </Form>
   );
 };
+
+
 
 export default ContactForm;

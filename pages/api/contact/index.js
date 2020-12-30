@@ -8,7 +8,7 @@ const validateBody = initMiddleware(
       check("name").isLength({ min: 2, max: 40 }),
       check("subject").isLength({ min: 3, max: 100 }),
       check("email").isEmail(),
-      check("message").isLength({ min: 5, max: 255 }),
+      check("body").isLength({ min: 5, max: 255 }),
     ],
     validationResult
   )
@@ -34,20 +34,18 @@ export default async (req, res) => {
             user: process.env.SMTP_USER,
             pass: process.env.SMTP_PASS,
           },
-        };
-        
+        }; 
+
         const transporter = nodemailer.createTransport(transportObject);
 
-        const { name, subject, email, message } = req.body;
+        const { name, subject, email, body } = req.body;
 
         const result = await transporter.sendMail({
           from: process.env.MAIL_FROM,
           to: process.env.MAIL_TO,
           subject: `${name} - ${subject}`,
-          text: `${message} \n ${email}`,
+          text: `${body} \n ${email}`,
         });
-
-        console.log("RESULT ", result);
 
         res.status(201).json({ success: true, message: "Email ok" });
         break;

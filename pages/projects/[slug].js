@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Slider from "react-styled-carousel";
+import Image from 'next/image';
 import { useRouter } from "next/router";
 import { PortfolioLayout } from "@/components/layouts";
 import { availableLocale } from "@/locales";

@@ -74,6 +74,9 @@ const AboutMe = ({translations}) => {
         <p>
          {translations.about_me}.
         </p>
+        <p>
+         {translations.about_me_paragraph}.
+        </p>
 
         <p>
           {translations.about_me_extended}.
@@ -102,7 +105,7 @@ const AboutMe = ({translations}) => {
           <ToolList
             title="General"
             iconset="general"
-            tools={["terminal", "git"]}
+            tools={["terminal", "git", "docker"]}
           />
         </Skills>
       </AboutMeColumn>
