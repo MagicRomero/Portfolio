@@ -3,6 +3,8 @@ import css3 from "@/public/assets/tools/css3.png";
 import javascript from "@/public/assets/tools/javascript.png";
 import typescript from "@/public/assets/tools/typescript.png";
 import react from "@/public/assets/tools/react.png";
+import styled_components from "@/public/assets/tools/styled_components.png";
+import nextjs from "@/public/assets/tools/nextjs.png";
 import jest from "@/public/assets/tools/jest.png";
 import laravel from "@/public/assets/tools/laravel.png";
 import mysql from "@/public/assets/tools/mysql.png";
@@ -22,6 +24,8 @@ export default {
     typescript,
     react,
     jest,
+    nextjs,
+    styled_components
   },
   backend: {
     laravel,

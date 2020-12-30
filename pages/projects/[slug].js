@@ -1,6 +1,5 @@
+import dynamic from "next/dynamic";
 import styled from "styled-components";
-import Slider from "react-styled-carousel";
-import Image from 'next/image';
 import { useRouter } from "next/router";
 import { PortfolioLayout } from "@/components/layouts";
 import { availableLocale } from "@/locales";
@@ -9,6 +8,10 @@ import {
   StyledSectionSecondary,
 } from "@/components/Common/StyledComponents";
 import { renderTechnologyIconsFromProject } from "@/data/tools";
+
+const Carousel = dynamic(() => import("styled-components-carousel"), {
+  ssr: false,
+});
 
 const ProjectCard = styled.div`
   padding: 1em;
@@ -20,6 +23,10 @@ const ProjectHeader = styled.header`
 
   & h2 {
     margin-bottom: 0.5em;
+  }
+
+  & img {
+    margin: 0 0.4rem;
   }
 `;
 
@@ -33,15 +40,17 @@ const ProjectStyledSection = styled(StyledSectionSecondary)`
 
 const ProjectSliderCard = styled.div`
   width: 100%;
-  height: auto;
-  max-height: 150px;
+  height: fit-content;
   padding: 0 0.5em;
+`;
 
-  & img {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
+const SlideImage = styled.img.attrs((props) => ({
+  alt: props.alt,
+  src: props.src,
+}))`
+  width: 100%;
+  height: auto;
+  display: block;
 `;
 
 const ProjectDetailPage = ({ project }) => {
@@ -59,29 +68,49 @@ const ProjectDetailPage = ({ project }) => {
             {renderTechnologyIconsFromProject(project, 40, 40)}
           </ProjectHeader>
           <ProjectStyledSection>
-            <Slider
-              padding="1em"
-              showArrows={false}
-              autoSlide={5000}
-              responsive={[
-                { breakPoint: 1280, cardsToShow: 3 },
-                { breakPoint: 760, cardsToShow: 2 },
-                { breakPoint: 480, cardsToShow: 1 },
+            <Carousel
+              slidesToShow={3}
+              center
+              breakpoints={[
+                {
+                  size: 1280,
+                  settings: {
+                    slidesToShow: 3,
+                    showArrows: true,
+                    showIndicator: true,
+                    swipeable: true,
+                  },
+                },
+                {
+                  size: 760,
+                  settings: {
+                    slidesToShow: 2,
+                    showArrows: false,
+                    showIndicator: true,
+                    swipeable: true,
+                  },
+                },
+                {
+                  size: 480,
+                  settings: {
+                    slidesToShow: 1,
+                    showArrows: false,
+                    showIndicator: false,
+                    swipeable: true,
+                  },
+                },
               ]}
             >
-              <ProjectSliderCard src="/assets/images/ecom.jpg">
-                <img src="/assets/images/ecom.jpg" />
-              </ProjectSliderCard>
-              <ProjectSliderCard src="/assets/images/ecom.jpg">
-                <img src="/assets/images/ecom.jpg" />
-              </ProjectSliderCard>
-              <ProjectSliderCard src="/assets/images/ecom.jpg">
-                <img src="/assets/images/ecom.jpg" />
-              </ProjectSliderCard>
-              <ProjectSliderCard src="/assets/images/ecom.jpg">
-                <img src="/assets/images/ecom.jpg" />
-              </ProjectSliderCard>
-            </Slider>
+              {project.sliders &&
+                project.sliders.images.map((name) => (
+                  <ProjectSliderCard key={name}>
+                    <SlideImage
+                      src={`${project.sliders.basePath}/${name}.png`}
+                      alt={name}
+                    />
+                  </ProjectSliderCard>
+                ))}
+            </Carousel>
           </ProjectStyledSection>
         </ProjectCard>
       </StyledMainContainer>

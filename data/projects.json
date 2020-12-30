@@ -10,9 +10,36 @@
           "javascript"
         ]
       },
-      "thumbnail": "/assets/images/projects/gallery-app.png",
+      "thumbnail": "/assets/images/projects/gallery/thumbnail.png",
+      "sliders": null,
       "source": "",
-      "demo": "https://galleryappnow.surge.sh/"
+      "demo": "https://galleryappnow.surge.sh"
+    },
+    {
+      "translation_key": "portfolio",
+      "slug": "portfolio-website",
+      "technologies": {
+        "frontend": [
+          "html5",
+          "css3",
+          "javascript",
+          "nextjs",
+          "styled_components"
+        ]
+      },
+      "thumbnail": "/assets/images/projects/portfolio/thumbnail.png",
+      "sliders": {
+        "basePath": "/assets/images/projects/portfolio/slider",
+        "images": [
+          "theme-light",
+          "theme-blue",
+          "theme-green",
+          "theme-purple",
+          "contact-form"
+        ]
+      },
+      "source": "https://github.com/MagicRomero/Portfolio",
+      "demo": "https://danieldeveloper.dev"
     }
   ]
 }

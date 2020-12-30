@@ -24,8 +24,9 @@ const ProjectsWrapper = styled.div`
 `;
 
 const Card = styled.div`
-  margin-bottom: 30px;
-  border: 0px;
+  height: fit-content;
+  margin-bottom: 1.25rem;
+  border: 0;
   border-radius: 0.625rem;
   box-shadow: 6px 11px 41px -28px #a99de7;
   word-wrap: break-word;
@@ -37,7 +38,7 @@ const CardImage = styled.img.attrs((props) => ({
   src: props.src,
 }))`
   max-width: 100%;
-  height: auto;
+  object-fit: cover;
   border-style: none;
 `;
 
@@ -85,6 +86,10 @@ const CardProjectTechnologies = styled.div`
   justify-content: flex-start;
   margin-bottom: 0.5em;
   padding-bottom: 0.5em;
+
+  & img {
+    margin: 0 0.4rem;
+  }
 `;
 
 const CardLinks = styled.div`
@@ -93,8 +98,6 @@ const CardLinks = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
-
-
 
 const ProjectCard = ({ project, translations }) => {
   const detail = translations.projects[project.translation_key];
@@ -110,7 +113,7 @@ const ProjectCard = ({ project, translations }) => {
           {renderTechnologyIconsFromProject(project)}
         </CardProjectTechnologies>
         <CardLinks>
-        <CommonButton
+          <CommonButton
             as="a"
             href={project.demo}
             rel="noopener noreferrer"

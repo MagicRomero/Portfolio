@@ -100,3 +100,4 @@ export const DangerAlert = styled(Alert)`
     color: #8f130c;
   }
 `;
+

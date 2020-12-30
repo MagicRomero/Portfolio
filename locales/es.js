@@ -30,5 +30,10 @@ export default {
       description:
         "Una galería de imágenes con algunos efectos adicionales ya sea cambiar el tema de color o alternar la visualización de imágenes. Esta mini aplicación utiliza CSS Grid",
     },
+    portfolio: {
+      name: "Mi Portafolio",
+      description:
+        "La misma web en la que estas navegando ahora mismo, creada a finales de año del 2020 con NextJS y un poco de amor en mi tiempo libre",
+    },
   },
 };

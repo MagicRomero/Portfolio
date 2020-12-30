@@ -34,5 +34,10 @@ export default {
       description:
         "An image display gallery with some fancy effects like change the day mode or toggle the images display. This mini-application have responsive behavior and uses the new CSS Grid layout ",
     },
+    portfolio: {
+      name: "My Portfolio",
+      description:
+        "The same website you are browsing right now, created at the end of the year 2020 with NextJS and a little bit of love in my spare time",
+    },
   },
 };

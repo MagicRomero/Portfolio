@@ -102,6 +102,15 @@ a {
   h6 {
     font-size: 0.85rem;
   }
+
+  p,
+  li,
+  span,
+  label,
+  input,
+  textarea {
+    font-size: 0.8rem;
+  }
 }
 `;
 
