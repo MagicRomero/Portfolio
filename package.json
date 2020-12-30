@@ -15,6 +15,7 @@
     "next-images": "^1.6.2",
     "next-seo": "^4.17.0",
     "nodemailer": "^6.4.17",
+    "preact": "^10.5.7",
     "react": "17.0.1",
     "react-country-flag": "^2.3.0",
     "react-dom": "17.0.1",
